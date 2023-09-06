@@ -1,0 +1,57 @@
+{% extends 'client/base.html' %}
+{% load static %}
+{% block home-state %}active{% endblock %}
+{% block content %}
+
+<div class="hero-wrap js-fullheight" style="background-color:black;">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
+      <div class="col-md-7 ftco-animate">
+        <span class="subheading"></span>
+        <h1 class="mb-4">Get into your account!</h1>
+        <p class="caps"></p>
+        {% comment %} <p class="mb-0"><a href="{% url 'client-login' %}" class="btn btn-primary">Login</a> <a href="{% url 'client-register' %}" class="btn btn-white">Register</a></p> {% endcomment %}
+    </div>
+</div>
+</div>
+</div>
+
+<section class="ftco-section ftco-no-pb ftco-no-pt">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-7"></div>
+         <div class="col-md-5 order-md-last">
+          <div class="login-wrap p-4 p-md-5">
+              <h3 class="mb-4">Login Now</h3>
+              {% if error %}
+               <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Error!</strong> {{error}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+              {% endif %}
+             
+              <form method="post" class="signup-form">
+                {% csrf_token %}
+                 <div class="form-group">
+                    <label class="label" for="name">Telephone</label>
+                    <input type="text" name="telephone" required class="form-control" placeholder="Your phone">
+                </div>
+                <div class="form-group">
+                 <label class="label" for="password">Password</label>
+                 <input id="password-field" type="password" required name="password" class="form-control" placeholder="Password">
+             </div>
+             <div class="form-group d-flex justify-content-end mt-4">
+                 <button type="submit" class="btn btn-primary submit"><span class="fa fa-paper-plane"></span></button>
+             </div>
+         </form>
+         <p class="text-center">Don't have an account?<a href="{% url 'client-register' %}"> Sign Up</a></p>
+     </div>
+ </div>
+</div>
+</div>
+</section>
+
+{% endblock %}

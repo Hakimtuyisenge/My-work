@@ -1,0 +1,144 @@
+{% extends 'client/base.html' %}
+{% load static %}
+{% block post-state %}active{% endblock %}
+{% block content %}
+
+	
+	<section class="ftco-section bg-light">
+		<div class="container">
+			<div class="row">
+				
+				<div class="col-lg-12">
+					<div class="sidebar-box bg-white ftco-animate">
+						<form action="#" class="search-form">
+							<div class="form-group">
+								<span class="icon fa fa-search"></span>
+								<input type="text" class="form-control" placeholder="Search...">
+							</div>
+						</form>
+					</div>
+					<div class="row">
+
+
+
+
+						{%for posts in category_post_list%}
+            
+						<div class="col-md-4 d-flex align-items-stretch ftco-animate">
+							<div class="project-wrap">
+								<a href="{{posts.get_absolute_url}}" class="img" style="background-image: url('{{posts.image.url}}');">
+	
+									<span class="price">{{posts.title}}</span>
+								</a>
+								<div class="text p-4">
+									<p><a href="#" style="color:black; font-family: 'Times New Roman', Times, serif;">{{posts.intro}}</a></p>
+									<p class="advisor">Author <span>{{posts.author.full_name}}</span></p>
+									<ul class="d-flex justify-content-between">
+										<li><span class="flaticon-shower"></span>Amount</li>
+										<li class="price">{{posts.price}}RWF</li>
+									</ul>
+									{%if posts.status == 'Paid'%}
+									<ul class="d-flex justify-content-between">
+										<li><span class="flaticon-shower"></span></li>
+										<li class="price">
+											<a href="{{posts.get_absolute_url}}"><button type="button" class="btn btn-primary text-light" >view</button></a></li>
+									</ul>
+									{% else %}
+									
+									<ul class="d-flex justify-content-between">
+										<li><span class="flaticon-shower"></span></li>
+										<li class="price">
+											<button type="button" class="btn btn-primary" onclick="makePayment()">Pay Now</button></li>
+									</ul>
+
+									{% endif %}
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					
+					</div>
+					<div class="row mt-5">
+						<div class="col text-center">
+							<div class="block-27">
+								<ul>
+									<li><a href="#">&lt;</a></li>
+									<li class="active"><span>1</span></li>
+									<li><a href="#">2</a></li>
+									<li><a href="#">3</a></li>
+									<li><a href="#">4</a></li>
+									<li><a href="#">5</a></li>
+									<li><a href="#">&gt;</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>		
+			<script src="https://checkout.flutterwave.com/v3.js"></script>
+			
+			{%for post in category_post_list%}
+			<script>
+			
+				function makePayment() {
+				
+					// let all_post = '{{all_post}}'.find(post=>post.id === post_id)
+					
+			
+					FlutterwaveCheckout({
+					  public_key: "FLWPUBK_TEST-ce742fc54e7e75b5dbb4c59b8f2d42e0-X",
+					  tx_ref: "titanic-48981487343MDI0NzMx",
+					  amount: '{{post.price}}',
+					  currency: "RWF",
+					  payment_options: "card, mobilemoneyghana, ussd",
+					  redirect_url: "http://127.0.0.1:8000/confirm-payment/" + '{{post.id}}',
+					  meta: {
+						consumer_id: 23,
+						consumer_mac: "92a3-912ba-1192a",
+					  },
+					  customer: {
+						email: "zacheekobura20@gmail.com",
+						phone_number: "08102909304",
+						name: "Rose DeWitt Bukater",
+					  },
+					  customizations: {
+						title: "URSS",
+						description: "Payment for an awesome post",
+						logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg",
+					  },
+					});
+				  }
+			
+			
+			</script>
+			{%endfor%}
+			</section>
+			
+			
+			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <h1 class="modal-title fs-5" id="staticBackdropLabel">Please pay for this post to read more!</h1>
+					  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						How to pay? 
+						<br>
+						Just click on <b>pay now</b> button and you'll be redirected to the payment page where you'll be asked to fill out your Master or Credit card 
+						
+						, after making payment you will be able to read more. Thank you!
+			
+					</div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+					 <button type="button" class="btn btn-primary" onclick="makePayment()">Pay Now</button>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			
+			{% endblock %}

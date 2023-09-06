@@ -1,0 +1,23 @@
+{% extends 'client/base.html' %}
+{% load static %}
+{% block post-state %}active{% endblock %}
+{% block content %}
+
+
+	<section class="ftco-section bg-light">
+		<div class="container">
+			<div class="row">
+				
+				<div class="col-lg-12">
+					<div class="sidebar-box bg-white ftco-animate text-center text-bold">
+						<h>{{object.title}}</h>
+					</div>
+					<div class="row text-dark">
+                        {{ object.body|safe }}
+					
+					</div>
+				
+				</div>
+			</div>
+		</section>
+{%endblock%}

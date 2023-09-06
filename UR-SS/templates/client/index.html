@@ -1,0 +1,218 @@
+{% extends 'client/base.html' %}
+{% load static %}
+{% block home-state %}active{% endblock %}
+{% block content %}
+
+{% if user.id and user.is_client %}
+<div class="hero-wrap js-fullheight" style="background-color:black;"></div>
+{% else %}
+<div class="hero-wrap js-fullheight" style="background-image: url('{% static 'images/back_2.jpeg' %}');">
+{%endif%}
+<div class="hero-wrap js-fullheight" >
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
+      <div class="col-md-7 ftco-animate">
+        {% if  user.id and user.is_client %}
+        <p></p>
+        {% else %}
+        <h1 class="mb-4">We Are Online Platform For selling business ideas</h1>
+        <p class="caps">  </p>
+        <p class="mb-0"><a href="{% url 'client-login' %}" class="btn btn-primary">Login</a> <a href="{% url 'client-register' %}" class="btn btn-white">Register</a></p>
+        {% endif %}
+    </div>
+</div>
+</div>
+</div>
+
+
+
+
+<section class="ftco-section">
+   <div class="container">
+      <div class="row justify-content-center pb-4">
+          <div class="col-md-12 heading-section text-center ftco-animate">
+          	<span class="subheading">Start Earning Today</span>
+            <h2 class="mb-4">Browse Posts by Category</h2>
+        </div>
+    </div>
+   
+        <div class="row justify-content-center">
+        {%if category_list%}
+        {% if user.id and user.is_client %}
+        {%for category in category_list%}  
+        <div class="col-md-3 col-lg-3">
+            <a  href="{% url 'category-posts' category %}" class="course-category img d-flex align-items-center bg-dark justify-content-center">
+                  <div class="text w-200 text-center">
+                     <h3>{{category.name}}</h3>
+                   
+                 </div>
+                </a>
+         </div>
+         {%endfor%}
+         {% else %}
+         {%for category in category_list%} 
+         <div class="col-md-3 col-lg-3">
+            <a  href="{% url 'client-login' %}" class="course-category img d-flex align-items-center bg-dark justify-content-center">
+                  <div class="text w-200 text-center">
+                     <h3>{{category.name}}</h3>
+                   
+                 </div>
+                </a>
+         </div>
+
+         {%endfor%}
+         {%endif%}
+         {%endif%}
+        
+
+</div>
+</div>
+</section>
+
+
+
+<section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url({% static 'images/back_4.webp' %});">
+ <div class="overlay"></div>
+ <div class="container">
+    <div class="row">
+       <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+         <div class="block-18 d-flex align-items-center">
+            <div class="icon"><span class="flaticon-online"></span></div>
+            <div class="text">
+             <strong class="number" data-number="400">0</strong>
+             <span>Clients</span>
+         </div>
+     </div>
+ </div>
+ <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+     <div class="block-18 d-flex align-items-center">
+        <div class="icon"><span class="flaticon-graduated"></span></div>
+        <div class="text">
+         <strong class="number" data-number="4500">0</strong>
+         <span>Authors</span>
+     </div>
+ </div>
+</div>
+<div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+ <div class="block-18 d-flex align-items-center">
+    <div class="icon"><span class="flaticon-instructor"></span></div>
+    <div class="text">
+
+     <span class="">
+        {{post_list_num}}
+     </span>
+ 
+     <span>Posts</span>
+ </div>
+</div>
+</div>
+<div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+ <div class="block-18 d-flex align-items-center">
+    <div class="icon"><span class="flaticon-tools"></span></div>
+    <div class="text">
+     <strong class="number" data-number="30">0</strong>
+     <span>Testimonials</span>
+ </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="ftco-section ftco-about img">
+   <div class="container">
+      <div class="row d-flex">
+         <div class="col-md-12 about-intro">
+            <div class="row">
+               <div class="col-md-6 d-flex">
+                  <div class="d-flex about-wrap">
+                     <div class="img d-flex align-items-center justify-content-center" style="background-image:url({% static 'images/back_7.jpg' %});">
+                     </div>
+                     <div class="img-2 d-flex align-items-center justify-content-center" style="background-image:url({% static 'images/back_8.jpg' %});">
+                     </div>
+                    </div>
+                </div>
+             <div class="col-md-6 pl-md-5 py-5">
+                 <div class="row justify-content-start pb-3">
+                     <div class="col-md-12 heading-section ftco-animate">
+                         <span class="subheading">Be more Productive</span>
+                         <h2 class="mb-4">Know more about us!</h2>
+                     <p>The reason as to why this system was developed, was to provide for young graduates platform that can help them to sell their business ideas for them to raise money and create their own jobs rather than remaining unemployment. 
+                        Our system will provide a platform that will feature different business ideas that can be successfully implemented with full detailed information convincing and profitable for those who will be interested to buy them.</p>
+                     <p><a href="{% url 'client-feedback' %}" class="btn btn-primary">Get in touch with us</a></p>
+                    </div>
+             </div>
+            </div>
+     </div>
+ </div>
+</div>
+</div>
+</section>
+
+<section class="ftco-intro ftco-section">
+ <div class="container">
+    <div class="row justify-content-center">
+       <div class="col-md-12 text-center">
+          <div class="img"  style="background-image: url({% static 'images/back_5.webp' %});">
+             <div class="overlay"></div>
+             <h2>We Are URSS - Unemployment Reduction Support System</h2>
+             <p>Join the group of authors and contribute to the society</p>
+             <p class="mb-0"><a href="{% url 'register' %}" class="btn btn-primary px-4 py-3">Sign Up</a></p>
+         </div>
+     </div>
+ </div>
+</div>
+</section>
+
+<section class="ftco-section testimony-section bg-light">
+    <div class="overlay" style="background-image: url({% static 'images/zachee.jpeg' %});"></div>
+   <div class="container">
+    <div class="row pb-4">
+      <div class="col-md-7 heading-section ftco-animate">
+         <span class="subheading">Testimonial</span>
+         <h2 class="mb-4">What Our Clients Say</h2>
+     </div>
+ </div>
+</div>
+<div class="container">
+    <div class="row ftco-animate">
+        {%if testimonial_list%}
+     {%for  testimony in testimonial_list%}
+        <div class="col-md-4">
+            <br><br>
+                <div class="item">
+                    <div class="testimony-wrap">
+                        <div class="text">
+                            <p class="star">
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </p>
+                        </div>
+                        <p class="mb-4">{{testimony.Message}}</p>
+                        <div class="d-flex align-items-center">
+                                <div class="user-img" style="background-image: url('{{testimony.Image.url}}')"></div>
+                            <div class="pl-3">
+                                <p class="name">{{testimony.full_name}}</p>
+                                <span class="position"></span>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+        
+        </div>
+    
+        {%endfor%}
+        {%endif%}
+    </div>
+
+</div>
+
+
+
+
+</section>
+{% endblock %}
